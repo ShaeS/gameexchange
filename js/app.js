@@ -1,23 +1,22 @@
 var GameApp = angular.module("GameApp", ["ngRoute","AllControllers"]);
 
-MessageApp.config([
+GameApp.config([
   "$routeProvider", "$locationProvider",
   function ($routeProvider, $locationProvider) {
     
     $locationProvider.html5Mode(true);
     $routeProvider.when(
-      "/send", //name for the route
+      "/usersignup", //name for the route
       {
-        templateUrl: "view/message.html"
+        templateUrl: "view/usersignup.html"
       }
     ).when(
-      "/user", {
-        templateUrl: "view/user.html"
+      "/userlogin", {
+        templateUrl: "view/userlogin.html"
       }
     ).when(
-      "/chat", {
-        templateUrl: "view/allmsg.html",
-        controller: "chatCtrl"
+      "/userupdate", {
+        templateUrl: "view/userupdate.html"
       }
     );
   }

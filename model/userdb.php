@@ -16,12 +16,14 @@
 
     function update_user(){
       global $db;
-      $query = "UPDATE users SET name = '".$_POST['name']."', username = '".$_POST['username']."', email = '".$_POST['email']."', password = '".$_POST['password']."', location = '".$_POST['city']."' WHERE id='".$_POST['user_id']."'";
+      $query = "UPDATE users SET name = '".$_POST['name']."', username = '".$_POST['username']."', email = '".$_POST['email']."', password = '".$_POST['password']."', location = '".$_POST['city']."' WHERE ID='".$_POST['user_id']."'";
       $result = $db->query($query);
     }
 
     function delete_user(){
-
+      global $db;
+      $query = "DELETE FROM users WHERE ID = '".$_POST['user_id']."'";
+      $result = $db->query($query);
     }
 
 ?>

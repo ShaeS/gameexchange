@@ -1,0 +1,33 @@
+<input type='text' id='title' placeholder='Enter Title' />
+<input type='text' id='players' placeholder='Number of Players' />
+<input type='text' id='genre' placeholder='Enter Genre' />
+<input type='text' id='time' placeholder='Enter Playtime' />
+<input type='number' id='age' placeholder='Enter Age' />
+<button id='add'>Add</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+
+    document.getElementById('add').onclick = function () {
+      //connect and insert 
+      $.ajax({
+        url: "../controller/games.php",
+        type: "post",
+        dataType: "html",
+        data: {
+          method: "add",
+          title: document.getElementById('title').value,
+          players: document.getElementById('players').value,
+          genre: document.getElementById('genre').value,
+          time: document.getElementById('time').value,
+          age: document.getElementById('age').value,
+          user_id: sessionStorage.id
+        },
+        success: function (resp) {
+          alert("Added!");
+        }
+      });
+    }
+
+  });
+</script>

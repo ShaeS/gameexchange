@@ -1,6 +1,6 @@
 var GameApp = angular.module("GameApp", ["ngRoute","AllControllers"]);
 
-MessageApp.config([
+GameApp.config([
   "$routeProvider", "$locationProvider",
   function ($routeProvider, $locationProvider) {
     

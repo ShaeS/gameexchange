@@ -5,9 +5,9 @@
 <input type='text' id='city' placeholder='Enter City' />
 <input type='password' id='password' placeholder='Enter Password' />
 <button id='edit'>Done</button>
+<button id='delete'>Delete Account</button>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
-  
   $(document).ready(function () {
 
     document.getElementById('edit').onclick = function () {
@@ -26,7 +26,23 @@
           user_id: sessionStorage.id
         },
         success: function (resp) {
-          alert("INSERT!");
+          alert("Updated!");
+        }
+      });
+    }
+
+    document.getElementById('delete').onclick = function () {
+      //connect and insert 
+      $.ajax({
+        url: "../controller/user.php",
+        type: "post",
+        dataType: "html",
+        data: {
+          method: "delete",
+          user_id: sessionStorage.id
+        },
+        success: function (resp) {
+          alert("Deleted!");
         }
       });
 

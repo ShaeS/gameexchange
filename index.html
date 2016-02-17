@@ -2,10 +2,15 @@
 <html ng-app='GameApp'>
 
 <head>
-    <title>The Game Exchange</title>
-    <base href="/gameexchange/" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="user-scalable=0, initial-scale=1.0" />
+  <meta name="description" content="Share boardgames with other people in your area" />
+  <title>The Game Exchange</title>
+  <base href="/gameexchange/" />
 </head>
-
+<link rel="stylesheet" href="./css/normalize.min.css" />
+<link rel="stylesheet" href="./css/style.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="./js/angular.min.js"></script>
 <script src="js/angular-route.min.js"></script>
@@ -13,12 +18,13 @@
 <script src="js/controller.js"></script>
 
 <body>
-    <a href="userlogin">User Login</a>
-    <a href="usersignup">User Signup</a>
-    <a href="userupdate">User Update</a>
-  <div ng-view>
+  <div class="wrapper">
+    <a style="color:white;" href="userlogin">User Login</a>
+    <div ng-view>
       
+    </div>
   </div>
+  <script src="./js/main.js"></script>
 </body>
 
 </html>

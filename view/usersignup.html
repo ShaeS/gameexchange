@@ -1,19 +1,40 @@
-<input type='text' id='name' placeholder='Enter Name' />
-<input type='text' id='username' placeholder='Enter Username' />
-<input type='text' id='email' placeholder='Enter Email' />
-<input type='text' id='city' placeholder='Enter City' />
-<input type='password' id='password' placeholder='Enter Password' />
-<input type='password' id='confirmpassword' placeholder='Confirm Password' />
-<button id='signup'>Sign Up</button>
+<p class="signupp">Please fill out the required fields to create your new account</p>
+<div class="inputflex">
+  <div class="flexinput">
+    <i class="fa fa-user"></i>
+    <input type='text' id='name' placeholder='Enter Name' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-user"></i>
+    <input type='text' id='username' placeholder='Enter Username' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-envelope"></i>
+    <input type='text' id='email' placeholder='Enter Email' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-map-marker"></i>
+    <input type='text' id='city' placeholder='Enter City' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-lock"></i>
+    <input type='password' id='password' placeholder='Enter Password' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-unlock-alt"></i>
+    <input type='password' id='confirmpassword' placeholder='Confirm Password' />
+  </div>
+  <a id='signup'>SIGN UP</a>
+</div>
+<p class="redirect">Already have an account? <a href="userlogin">Log in <i class="fa fa-arrow-right"></i></a></p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
-  
   $(document).ready(function () {
 
     document.getElementById('signup').onclick = function () {
       //connect and insert 
       $.ajax({
-        url: "../controller/user.php",
+        url: "./controller/user.php",
         type: "post",
         dataType: "html",
         data: {

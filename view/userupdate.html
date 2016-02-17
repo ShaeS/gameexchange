@@ -1,11 +1,31 @@
-<img src="../img/profile.png" alt="profile picture">
-<input type='text' id='name' placeholder='Enter Name' />
-<input type='text' id='username' placeholder='Enter Username' />
-<input type='text' id='email' placeholder='Enter Email' />
-<input type='text' id='city' placeholder='Enter City' />
-<input type='password' id='password' placeholder='Enter Password' />
-<button id='edit'>Done</button>
-<button id='delete'>Delete Account</button>
+<div class="profwrap">
+  <img class="profile" src="./img/profile.png" alt="profile picture">
+  <p class="editprof">edit image</p>
+</div>
+<div class="inputflex">
+  <div class="flexinput">
+    <i class="fa fa-user"></i>
+    <input type='text' id='name' placeholder='Enter Name' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-user"></i>
+    <input type='text' id='username' placeholder='Enter Username' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-envelope"></i>
+    <input type='text' id='email' placeholder='Enter Email' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-map-marker"></i>
+    <input type='text' id='city' placeholder='Enter City' />
+  </div>
+  <div class="flexinput">
+    <i class="fa fa-lock"></i>
+    <input type='password' id='password' placeholder='Enter Password' />
+  </div>
+  <a id='edit'>DONE</a>
+  <a id='delete'>DELETE ACCOUNT</a>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
@@ -13,7 +33,7 @@
     document.getElementById('edit').onclick = function () {
       //connect and insert 
       $.ajax({
-        url: "../controller/user.php",
+        url: "./controller/user.php",
         type: "post",
         dataType: "html",
         data: {
@@ -34,7 +54,7 @@
     document.getElementById('delete').onclick = function () {
       //connect and insert 
       $.ajax({
-        url: "../controller/user.php",
+        url: "./controller/user.php",
         type: "post",
         dataType: "html",
         data: {

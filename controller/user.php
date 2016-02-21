@@ -16,4 +16,8 @@ if($_POST['method'] == "update"){
 if($_POST['method'] == "delete"){
     delete_user();   
 }
+
+if($_POST['method'] == "getinfo"){
+    get_userinfo();   
+}
 ?>

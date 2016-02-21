@@ -1,34 +1,65 @@
-<div class="profwrap">
-  <img class="profile" src="./img/profile.png" alt="profile picture">
-  <p class="editprof">edit image</p>
-</div>
-<div class="inputflex">
-  <div class="flexinput">
-    <i class="fa fa-user"></i>
-    <input type='text' id='name' placeholder='Enter Name' />
+<header>
+  <div class="headlogo">
+    <img src="./img/smalllogo.png" />
+    <div class="headerlogotext">
+      <p class="headgame">THE GAME</p>
+      <p class="headex">EXCHANGE</p>
+    </div>
   </div>
-  <div class="flexinput">
-    <i class="fa fa-user"></i>
-    <input type='text' id='username' placeholder='Enter Username' />
+  <a href='userprofile'><span id="cancel">cancel</span></a>
+</header>
+<div class="wrapper">
+  <div class="profwrap">
+    <img id="profileimg" class="profile" src="./img/profile.png" alt="profile picture">
+    <p class="editprof">edit image</p>
   </div>
-  <div class="flexinput">
-    <i class="fa fa-envelope"></i>
-    <input type='text' id='email' placeholder='Enter Email' />
+  <div class="inputflex">
+    <div class="flexinput">
+      <i class="fa fa-user"></i>
+      <input type='text' id='name' placeholder='Enter Name' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-user"></i>
+      <input type='text' id='username' placeholder='Enter Username' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-envelope"></i>
+      <input type='text' id='email' placeholder='Enter Email' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-map-marker"></i>
+      <input type='text' id='city' placeholder='Enter City' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-lock"></i>
+      <input type='password' id='password' placeholder='Enter Password' />
+    </div>
+    <a id='edit'>UPDATE</a>
+    <a id='delete'>DELETE ACCOUNT</a>
   </div>
-  <div class="flexinput">
-    <i class="fa fa-map-marker"></i>
-    <input type='text' id='city' placeholder='Enter City' />
-  </div>
-  <div class="flexinput">
-    <i class="fa fa-lock"></i>
-    <input type='password' id='password' placeholder='Enter Password' />
-  </div>
-  <a id='edit'>DONE</a>
-  <a id='delete'>DELETE ACCOUNT</a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
+
+    $.ajax({
+      url: "./controller/user.php",
+      type: "post",
+      dataType: "json",
+      data: {
+        method: "getinfo",
+        user_id: sessionStorage.id
+      },
+      success: function (resp) {
+        $("#profileimg").attr("src", resp[0].avatar);
+        $("#profileimg").attr("alt", "Picture of " + resp[0].name);
+        $("#name").attr("value", resp[0].name);
+        $("#username").attr("value", resp[0].username);
+        $("#email").attr("value", resp[0].email);
+        $("#city").attr("value", resp[0].location);
+        $("#password").attr("value", resp[0].password);
+      }
+    });
 
     document.getElementById('edit').onclick = function () {
       //connect and insert 

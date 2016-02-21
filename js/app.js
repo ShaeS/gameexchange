@@ -6,8 +6,7 @@ GameApp.config([
     
     $locationProvider.html5Mode(true);
     $routeProvider.when(
-      "/usersignup", //name for the route
-      {
+      "/usersignup", {
         templateUrl: "view/usersignup.html"
       }
     ).when(
@@ -18,6 +17,32 @@ GameApp.config([
       "/userupdate", {
         templateUrl: "view/userupdate.html"
       }
+    ).when(
+      "/gamegetlarge", {
+        templateUrl: "view/gamegetlarge.html"
+      }
+    ).when(
+      "/gamegetlist", {
+        templateUrl: "view/gamegetlist.html"
+      }
+    ).when(
+      "/userprofile", {
+        templateUrl: "view/userprofile.html"
+      }
+    ).when(
+      "/gamedetails", {
+        templateUrl: "view/gamedetails.html"
+      }
+    ).when(
+      "/editgame", {
+        templateUrl: "view/editgame.html"
+      }
+    ).when(
+      "/gamecreate", {
+        templateUrl: "view/gamecreate.html"
+      }
+    ).otherwise(
+      {redirectTo: "/userlogin"}
     );
   }
 ]);

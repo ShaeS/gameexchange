@@ -6,7 +6,7 @@ include("connect.php");
     }
 
     function get_comments(){
-
+      
     }
 
     function update_comment(){

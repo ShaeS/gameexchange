@@ -26,4 +26,11 @@
       $result = $db->query($query);
     }
 
+    function get_userinfo(){
+        global $db;
+        $query = "SELECT * FROM users WHERE ID = '".$_POST['user_id']."'";
+        $result = $db->query($query);
+        echo json_encode($result->fetchAll());
+    }
+
 ?>

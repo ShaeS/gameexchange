@@ -1,32 +1,43 @@
-<p class="signupp">Please fill out the required fields to create your new account</p>
-<div class="inputflex">
-  <div class="flexinput">
-    <i class="fa fa-user"></i>
-    <input type='text' id='name' placeholder='Enter Name' />
+<header>
+  <div class="headlogo">
+    <img src="./img/smalllogo.png" />
+    <div class="headerlogotext">
+      <p class="headgame">THE GAME</p>
+      <p class="headex">EXCHANGE</p>
+    </div>
   </div>
-  <div class="flexinput">
-    <i class="fa fa-user"></i>
-    <input type='text' id='username' placeholder='Enter Username' />
+</header>
+ <div class="wrapper">
+  <p class="signupp">Please fill out the required fields to create your new account</p>
+  <div class="inputflex">
+    <div class="flexinput">
+      <i class="fa fa-info-circle"></i>
+      <input type='text' id='name' placeholder='Enter Name' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-user"></i>
+      <input type='text' id='username' placeholder='Enter Username' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-envelope"></i>
+      <input type='text' id='email' placeholder='Enter Email' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-map-marker"></i>
+      <input type='text' id='city' placeholder='Enter City' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-lock"></i>
+      <input type='password' id='password' placeholder='Enter Password' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-unlock-alt"></i>
+      <input type='password' id='confirmpassword' placeholder='Confirm Password' />
+    </div>
+    <a href="gamegetlarge" id='signup'>SIGN UP</a>
   </div>
-  <div class="flexinput">
-    <i class="fa fa-envelope"></i>
-    <input type='text' id='email' placeholder='Enter Email' />
-  </div>
-  <div class="flexinput">
-    <i class="fa fa-map-marker"></i>
-    <input type='text' id='city' placeholder='Enter City' />
-  </div>
-  <div class="flexinput">
-    <i class="fa fa-lock"></i>
-    <input type='password' id='password' placeholder='Enter Password' />
-  </div>
-  <div class="flexinput">
-    <i class="fa fa-unlock-alt"></i>
-    <input type='password' id='confirmpassword' placeholder='Confirm Password' />
-  </div>
-  <a id='signup'>SIGN UP</a>
+  <p class="redirect">Already have an account? <a href="userlogin">Log in <i class="fa fa-arrow-right"></i></a></p>
 </div>
-<p class="redirect">Already have an account? <a href="userlogin">Log in <i class="fa fa-arrow-right"></i></a></p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
@@ -46,7 +57,7 @@
           password: document.getElementById('password').value
         },
         success: function (resp) {
-          alert("INSERT!");
+          
         }
       });
 

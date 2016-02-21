@@ -1,0 +1,75 @@
+<header>
+  <div class="headlogo">
+    <img src="./img/smalllogo.png" />
+    <div class="headerlogotext">
+      <p class="headgame">THE GAME</p>
+      <p class="headex">EXCHANGE</p>
+    </div>
+  </div>
+  <a class='userproflink' href='userprofile'><i class='fa fa-user'></i><span id="headuser"></span></a>
+</header>
+<div class="wrapper">
+  <div class="displaytype">
+    <i class="active fa fa-th-large"></i>
+    <a href='gamegetlist'><i class="disabled fa fa-th-list"></i></a>
+  </div>
+  <div id="display">
+
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+
+    $.ajax({
+      url: "./controller/user.php",
+      type: "post",
+      dataType: "json",
+      data: {
+        method: "getinfo",
+        user_id: sessionStorage.id
+      },
+      success: function (resp) {
+        $("#headuser").text(resp[0].username);
+      }
+    });
+
+
+    $.ajax({
+      url: "./controller/games.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        method: "getall"
+      },
+      success: function (resp) {
+        var html = "<ul class='largeul'>";
+        for (var i = 0; i < resp.length; i++) {
+          html += "<li class='game'>";
+          html += "<a id='" + resp[i].ID + "' class ='viewimggame' href='gamedetails'><span class='roll'></span><img src='" + resp[i].image + "' /></a>";
+          html += "</li>";
+        }
+        html += "</ul>";
+        $("#display").html(html);
+        $(".viewimggame").click(function () {
+          sessionStorage.game_id = $(this).attr("id");
+        });
+
+        $(function () {
+          $(".roll").css("opacity", "0");
+          $(".roll").hover(function () {
+              $(this).stop().animate({
+                opacity: .7
+              }, "fast");
+            },
+            function () {
+              $(this).stop().animate({
+                opacity: 0
+              }, "fast");
+            });
+        });
+      }
+    });
+
+  });
+</script>

@@ -1,28 +1,31 @@
-<div class="logowrap">
-  <img class="logo" src="./img/logo.png" alt="The Game Exchange Logo" />
-  <h1 class="logotext">THE GAME</h1>
-  <h2 class="logotext">EXCHANGE</h2>
-</div>
-
-<div class="inputflex">
-  <div class="flexinput">
-    <i class="fa fa-user"></i>
-    <input type='text' id='username' placeholder='Enter Username' />
+<img class='loginback' src='./img/background.png' />
+<div class="wrapper">
+  <div class="logowrap">
+    <img class="logo" src="./img/logo.png" alt="The Game Exchange Logo" />
+    <h1 class="logotext">THE GAME</h1>
+    <h2 class="logotext">EXCHANGE</h2>
   </div>
-  <div class="flexinput">
-    <i class="fa fa-lock"></i>
-    <input type='password' id='password' placeholder='Enter Password' />
+
+  <div class="inputflex">
+    <div class="flexinput">
+      <i class="fa fa-user"></i>
+      <input type='text' id='username' placeholder='Enter Username' />
+    </div>
+    <div class="flexinput">
+      <i class="fa fa-lock"></i>
+      <input type='password' id='password' placeholder='Enter Password' />
+    </div>
+    <a href="gamegetlarge" id='login'>LOG IN</a>
   </div>
-  <a href="userupdate" id='login'>LOG IN</a>
+
+  <p class="redirect">Don't have an account? <a href="usersignup">Sign up now <i class="fa fa-arrow-right"></i></a></p>
 </div>
-
-<p class="redirect">Don't have an account? <a href="usersignup">Sign up now <i class="fa fa-arrow-right"></i></a></p>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
-
+    sessionStorage.id = -1;
     var user_id = -1;
+
     document.getElementById('login').onclick = function () {
       //connect and insert 
       $.ajax({
@@ -35,10 +38,8 @@
           password: document.getElementById('password').value
         },
         success: function (resp) {
-          alert("Logged In!");
           user_id = resp[0].ID;
           sessionStorage.id = resp[0].ID;
-          console.log(user_id);
         }
       });
 

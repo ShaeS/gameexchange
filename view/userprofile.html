@@ -1,0 +1,95 @@
+<header>
+  <a href='gamegetlarge'>
+    <div class="headlogo">
+      <img src="./img/smalllogo.png" />
+      <div class="headerlogotext">
+        <p class="headgame">THE GAME</p>
+        <p class="headex">EXCHANGE</p>
+      </div>
+    </div>
+  </a>
+  <a href='userlogin'><span id="logout">logout</span></a>
+</header>
+<div class="wrapper">
+  <a class='userupdate' href='userupdate'>
+    <div class="profwrap">
+      <img id="profileimg" class="profile" src="./img/profile.png" alt="profile picture">
+      <p class="usernametitle"></p>
+      <p class='editprof2'>click to edit profile</p>
+    </div>
+  </a>
+  <div class='profilebuttons'>
+    <a class='profileposts'>POSTS</a>
+    <a href='gamecreate' id='addpost'>ADD POST</a>
+    <a class='profilefavourites'>FAVOURITES</a>
+  </div>
+  <div id='display'>
+
+  </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+
+    $.ajax({
+      url: "./controller/user.php",
+      type: "post",
+      dataType: "json",
+      data: {
+        method: "getinfo",
+        user_id: sessionStorage.id
+      },
+      success: function (resp) {
+        $("#profileimg").attr("src", resp[0].avatar);
+        $("#profileimg").attr("alt", "Picture of " + resp[0].name);
+        $(".usernametitle").text(resp[0].username);
+      }
+    });
+
+    $.ajax({
+      url: "./controller/games.php",
+      type: "post",
+      dataType: "json",
+      data: {
+        method: "getusergames",
+        user_id: sessionStorage.id
+      },
+      success: function (resp) {
+        var html = "<ul class='largeul'>";
+        for (var i = 0; i < resp.length; i++) {
+          html += "<li class='game'>";
+          html += "<a id='" + resp[i].ID + "' class ='viewimggame' href='editgame'><span class='roll'></span><img src='" + resp[i].image + "' />";
+          html += "</li>";
+        }
+        html += "</ul>";
+        $("#display").html(html);
+        $(".profileposts").html(resp.length + " POSTS");
+        $(".viewimggame").click(function () {
+          sessionStorage.game_id = $(this).attr("id");
+        });
+
+        $(function () {
+          $(".roll").css("opacity", "0");
+          $(".roll").hover(function () {
+              $(this).stop().animate({
+                opacity: .7
+              }, "fast");
+            },
+            function () {
+              $(this).stop().animate({
+                opacity: 0
+              }, "fast");
+            });
+        });
+
+      }
+
+    });
+
+    $("#logout").click(function () {
+      sessionStorage.id = -1;
+    });
+
+  });
+</script>

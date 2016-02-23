@@ -6,13 +6,13 @@
       <p class="headex">EXCHANGE</p>
     </div>
   </div>
-  <a class ='userproflink' href='userprofile'><i class='fa fa-user'></i><span id="headuser"></span></a>
+  <a class='userproflink' href='userprofile'><i class='fa fa-user'></i><span id="headuser"></span></a>
 </header>
 <div class="wrapper">
- <div class="displaytype">
-   <a href='gamegetlarge'><i class="disabled fa fa-th-large"></i></a>
-   <i class="active fa fa-th-list"></i>
- </div>
+  <div class="displaytype">
+    <a href='gamegetlarge'><i class="disabled fa fa-th-large"></i></a>
+    <i class="active fa fa-th-list"></i>
+  </div>
   <div id="display">
 
   </div>
@@ -34,35 +34,49 @@
       }
     });
 
-
     $.ajax({
-      url: "./controller/games.php",
+      url: "./controller/comments.php",
       type: "POST",
       dataType: "json",
       data: {
         method: "getall"
       },
       success: function (resp) {
-        console.log(resp);
-        var html = "<ul class='listul'>";
-        for (var i = 0; i < resp.length; i++) {
-          html += "<li class='game'>";
-          html += "<h3>" + resp[i].title + "</h3>";
-          html += "<img src='" + resp[i].image + "' />";
-          html += "<div class='gameinfo'>";
-          html += "<div class='buttons'><a id='"+resp[i].ID+"' href='gamedetails' class='viewgame'>VIEW</a><a class='greybut'>FAVOURITE</a><a class='greybut'>COMMENTS</a></div>";
-          html += "<ul>";
-          for (var i2 = 0; i2 < 3; i2++) {
-            html += "<li><span>Username: </span><span class='commenttext'>Great game!</span></li>";
+        var comments = resp;
+
+        $.ajax({
+          url: "./controller/games.php",
+          type: "POST",
+          dataType: "json",
+          data: {
+            method: "getall"
+          },
+          success: function (resp) {
+            var html = "<ul class='listul'>";
+            for (var i = 0; i < resp.length; i++) {
+              html += "<li class='game'>";
+              html += "<h3>" + resp[i].title + "</h3>";
+              html += "<img src='" + resp[i].image + "' />";
+              html += "<div class='gameinfo'>";
+              html += "<div class='buttons'><a id='" + resp[i].ID + "' href='gamedetails' class='viewgame'>VIEW</a><a class='greybut'>FAVOURITE</a><a class='greybut'>COMMENTS</a></div>";
+              html += "<ul>";
+              for (var i2 = 0; i2 < 3; i2++) {
+                if (comments[i2].game_id == resp[i].ID) {
+                  html += "<li><span>"+comments[i2].user_id+": </span><span class='commenttext'>"+comments[i2].comment+"</span></li>";
+                }
+              }
+
+
+              html += "</ul>";
+              html += "</div>";
+              html += "</li>";
+            }
+            html += "</ul>";
+            $("#display").html(html);
+            $(".viewgame").click(function () {
+              sessionStorage.game_id = $(this).attr("id");
+            });
           }
-          html += "</ul>";
-          html += "</div>";
-          html += "</li>";
-        }
-        html += "</ul>";
-        $("#display").html(html);
-        $(".viewgame").click(function() {
-          sessionStorage.game_id = $(this).attr("id");
         });
       }
     });

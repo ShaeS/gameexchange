@@ -540,6 +540,112 @@ span.rolledit {
 
 
 /********************************************
+GAMECREATE
+********************************************/
+
+.inputflexcreate {
+  width: 300px;
+  margin: 0 auto 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.inputflexcreate a {
+  background-color: #bc773e;
+  border: none;
+  padding: 1.1em;
+  font-size: 0.9em;
+  border-radius: 3px;
+  margin: 0.4em 0;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.inputflexcreate a:hover {
+  background-color: #ac652c;
+}
+
+.inputflexcreate input {
+  font-size: 0.9em;
+  padding: 1.1em;
+  background-color: #4e4e51;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  margin: 0.4em 0;
+}
+
+.inputflexcreate select {
+  background: url(../img/downarrow.png) no-repeat;
+  background-position: 272px center;
+  background-size: 20px;
+  font-size: 0.9em;
+  padding: 1.1em;
+  background-color: #4e4e51;
+  color: #acacac;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  margin: 0.4em 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.imageupload {
+  width: 300px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.imageupload button {
+  background-color: #bc773e;
+  border: none;
+  padding: 0.7em 2em;
+  font-size: 0.9em;
+  border-radius: 3px;
+  margin: 0.4em 0;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.imageupload button:hover {
+  background-color: #ac652c;
+}
+
+.numof label {
+  color: #acacac;
+}
+
+.numof input {
+  width: 80px;
+}
+
+label:first-child {
+  width: 108.3px;
+  display: inline-block;
+}
+
+
+/********************************************
 MEDIA QUERIES 768
 ********************************************/
 
@@ -591,5 +697,4 @@ MEDIA QUERIES 480
     height: 240px;
     width: 240px;
   }
-
 }

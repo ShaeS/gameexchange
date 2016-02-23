@@ -6,7 +6,10 @@ include("connect.php");
     }
 
     function get_comments(){
-      
+      global $db;
+      $query = "SELECT * FROM comments";
+      $result = $db->query($query);
+      echo json_encode($result->fetchAll());
     }
 
     function update_comment(){

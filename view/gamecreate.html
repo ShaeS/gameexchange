@@ -1,9 +1,39 @@
-<input type='text' id='title' placeholder='Enter Title' />
-<input type='text' id='players' placeholder='Number of Players' />
-<input type='text' id='genre' placeholder='Enter Genre' />
-<input type='text' id='time' placeholder='Enter Playtime' />
-<input type='number' id='age' placeholder='Enter Age' />
-<button id='add'>Add</button>
+<header>
+  <div class="headlogo">
+    <img src="./img/smalllogo.png" />
+    <div class="headerlogotext">
+      <p class="headgame">THE GAME</p>
+      <p class="headex">EXCHANGE</p>
+    </div>
+  </div>
+  <a href='userprofile'><span id="cancel">cancel</span></a>
+</header>
+<div class='wrapper'>
+  <div class='imageupload'>
+    <p>Choose an image</p>
+    <button id='uploadimg'>IMAGE</button>
+  </div>
+  <div class='inputflexcreate'>
+    <input type='text' id='title' placeholder='Game Title' />
+    <select id='genreselect'>
+      <option value='40'>Choose an genre</option>
+    </select>
+    <div class='numof'>
+      <label for='minplayers'>Players:</label>
+      <input type='number' id='minplayers' min='1' max='99' value='1' />
+      <label for='maxplayers'>To</label>
+      <input type='number' id='maxplayers' min='1' max='99' value='2' />
+    </div>
+    <div class='numof'>
+      <label for='mintime'>Play time:</label>
+      <input type='number' id='mintime' min='1' max='999' value='20' />
+      <label for='maxtime'>To</label>
+      <input type='number' id='maxtime' min='1' max='999' value='40' />
+    </div>
+    <input type='number' id='age' min= '1' max='99' placeholder='Enter minimum age' />
+    <a id='add'>Add</a>
+  </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
@@ -11,16 +41,16 @@
     document.getElementById('add').onclick = function () {
       //connect and insert 
       $.ajax({
-        url: "../controller/games.php",
+        url: "./controller/games.php",
         type: "post",
         dataType: "html",
         data: {
           method: "add",
           title: document.getElementById('title').value,
-          players: document.getElementById('players').value,
-          genre: document.getElementById('genre').value,
-          time: document.getElementById('time').value,
-          age: document.getElementById('age').value,
+          genre: document.getElementById('genreselect').value,
+          players: document.getElementById('minplayers').value + " - " + document.getElementById('maxplayers').value,
+          time: document.getElementById('mintime').value + "mins - " + document.getElementById('maxtime').value + "mins",
+          age: document.getElementById('age').value + "+",
           user_id: sessionStorage.id
         },
         success: function (resp) {
@@ -28,6 +58,20 @@
         }
       });
     }
+
+    $.ajax({
+      url: "./controller/genres.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        method: "getall"
+      },
+      success: function (resp) {
+        for (var i = 0; i < resp.length; i++) {
+          $('<option>').val(resp[i].ID).text(resp[i].genrename).appendTo('#genreselect');
+        }
+      }
+    });
 
   });
 </script>

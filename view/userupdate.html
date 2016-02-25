@@ -11,7 +11,10 @@
 <div class="wrapper">
   <div class="profwrap">
     <img id="profileimg" class="profile" src="./img/profile.png" alt="profile picture">
-    <p class="editprof">edit image</p>
+    <form id='profileform'>
+      <input type="file" name="file" id="profilepic" class="inputfile" />
+      <label for="profilepic">Choose a file...</label>
+    </form>
   </div>
   <div class="inputflex">
     <div class="flexinput">
@@ -98,5 +101,35 @@
       });
 
     }
+
+    var files = document.getElementById("profilepic");
+
+    $("#profilepic").on('change', function (e) {
+      //do whatever you want
+      e.preventDefault();
+
+      var formData = new FormData();
+
+      var xhr = new XMLHttpRequest();
+
+      var allfiles = files.files;
+
+      if (!allfiles[0].type.match("image/*")) {
+        return false;
+      }
+      formData.append("images[]", allfiles[0], allfiles[0].name);
+      formData.append("user_id", sessionStorage.id);
+
+      xhr.open("POST", "./model/upload.php", true);
+      xhr.onload - function () {
+        if (xhr.status == 200) {
+          alert("loaded properly");
+        }
+      }
+      console.log(formData);
+
+
+      xhr.send(formData);
+    });
   });
 </script>

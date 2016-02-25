@@ -58,13 +58,9 @@
               html += "<h3>" + resp[i].title + "</h3>";
               html += "<img src='" + resp[i].image + "' />";
               html += "<div class='gameinfo'>";
-              html += "<div class='buttons'><a id='" + resp[i].ID + "' href='gamedetails' class='viewgame'>VIEW</a><a class='greybut'>FAVOURITE</a><a class='greybut'>COMMENTS</a></div>";
+              html += "<a id='" + resp[i].ID + "' href='gamedetails' class='viewgame'>VIEW</a>";
               html += "<ul>";
-              for (var i2 = 0; i2 < 3; i2++) {
-                if (comments[i2].game_id == resp[i].ID) {
-                  html += "<li><span>"+comments[i2].user_id+": </span><span class='commenttext'>"+comments[i2].comment+"</span></li>";
-                }
-              }
+              
 
 
               html += "</ul>";

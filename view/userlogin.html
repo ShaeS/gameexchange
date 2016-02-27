@@ -7,15 +7,17 @@
   </div>
 
   <div class="inputflex">
-    <div class="flexinput">
-      <i class="fa fa-user"></i>
-      <input type='text' id='username' placeholder='Enter Username' />
-    </div>
-    <div class="flexinput">
-      <i class="fa fa-lock"></i>
-      <input type='password' id='password' placeholder='Enter Password' />
-    </div>
-    <a href="gamegetlarge" id='login'>LOG IN</a>
+    <form id="loginForm" name="login" method="post">
+      <div class="flexinput">
+        <i class="fa fa-user"></i>
+        <input type='text' id='username' placeholder='Enter Username' />
+      </div>
+      <div class="flexinput">
+        <i class="fa fa-lock"></i>
+        <input type='password' id='password' placeholder='Enter Password' />
+      </div>
+      <button type='submit' id='login'>LOG IN</button>
+    </form>
   </div>
 
   <p class="redirect">Don't have an account? <a href="usersignup">Sign up now <i class="fa fa-arrow-right"></i></a></p>
@@ -26,7 +28,7 @@
     sessionStorage.id = -1;
     var user_id = -1;
 
-    document.getElementById('login').onclick = function () {
+    document.getElementById('login').onclick = function (e) {
       //connect and insert 
       $.ajax({
         url: "./controller/user.php",
@@ -38,8 +40,10 @@
           password: document.getElementById('password').value
         },
         success: function (resp) {
+          e.preventDefault();
           user_id = resp[0].ID;
           sessionStorage.id = resp[0].ID;
+          location.replace("gamegetlarge");
         }
       });
 

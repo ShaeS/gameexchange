@@ -54,7 +54,7 @@ body {
   flex-direction: column;
 }
 
-.inputflex a {
+.inputflex button {
   background-color: #ce7a41;
   border: none;
   padding: 1.1em;
@@ -68,9 +68,11 @@ body {
   cursor: pointer;
   text-decoration: none;
   color: white;
+  display: block;
+  width: 300px;
 }
 
-.inputflex a:hover {
+.inputflex button:hover {
   background-color: #c16b30;
 }
 
@@ -538,7 +540,6 @@ span.rolledit {
 }
 
 
-
 /********************************************
 GAMECREATE
 ********************************************/
@@ -557,7 +558,7 @@ GAMECREATE
   flex-direction: column;
 }
 
-.inputflexcreate a {
+.inputflexcreate button {
   background-color: #ce7a41;
   border: none;
   padding: 1.1em;
@@ -571,9 +572,11 @@ GAMECREATE
   cursor: pointer;
   text-decoration: none;
   color: white;
+  display: block;
+  width: 300px;
 }
 
-.inputflexcreate a:hover {
+.inputflexcreate button:hover {
   background-color: #c16b30;
 }
 
@@ -586,6 +589,7 @@ GAMECREATE
   border-radius: 3px;
   outline: none;
   margin: 0.4em 0;
+  width: 300px;
 }
 
 .inputflexcreate select {
@@ -603,12 +607,11 @@ GAMECREATE
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  width: 300px;
 }
 
 .imageupload {
-  width: 300px;
-  margin: 30px auto;
-  text-align: center;
+  margin: 50px auto;
 }
 
 .imageupload button {
@@ -642,6 +645,12 @@ GAMECREATE
 label:first-child {
   width: 108.3px;
   display: inline-block;
+}
+
+.gameimg2 {
+  width: 175px;
+  margin: 0 auto;
+  display: block;
 }
 
 

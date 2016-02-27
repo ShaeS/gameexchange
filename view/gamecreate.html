@@ -10,31 +10,32 @@
 </header>
 <div class='wrapper'>
   <div class='imageupload'>
-    <p>Choose an image</p>
-    <button id='uploadimg'>IMAGE</button>
+    <img id="gameimg" class="gameimg2" src="./img/default.png" alt="game picture">
+    <form id='gameimgform'>
+      <input type="file" name="file" id="gamepic" class="inputfile" />
+      <label for="gamepic">Choose a file...</label>
+    </form>
   </div>
   <div class='inputflexcreate'>
-    <form action="gameexchange/userprofile" id="submitForm" name="makegame" method="post">
-    <fieldset>
-    <input type='text' id='title' placeholder='Game Title' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,30}' oninput='checkTitle(this);' />
-    <select id='genreselect'>
-      <option value='40'>Choose an genre</option>
-    </select>
-    <div class='numof'>
-      <label for='minplayers'>Players:</label>
-      <input type='number' id='minplayers' min='1' max='99' value='1' />
-      <label for='maxplayers'>To</label>
-      <input type='number' id='maxplayers' min='1' max='99' value='2' />
-    </div>
-    <div class='numof'>
-      <label for='mintime'>Play time:</label>
-      <input type='number' id='mintime' min='1' max='999' value='20' />
-      <label for='maxtime'>To</label>
-      <input type='number' id='maxtime' min='1' max='999' value='40' />
-    </div>
-    <input type='number' id='age' min= '1' max='99' placeholder='Enter minimum age' />
-    <button id='add'>Add</button>
-    </fieldset>
+    <form id="submitForm" name="makegame" method="post">
+      <input type='text' id='title' placeholder='Game Title' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,30}' />
+      <select id='genreselect'>
+        <option value='40'>Choose an genre</option>
+      </select>
+      <div class='numof'>
+        <label for='minplayers'>Players:</label>
+        <input type='number' id='minplayers' min='1' max='99' value='1' />
+        <label for='maxplayers'>To</label>
+        <input type='number' id='maxplayers' min='1' max='99' value='2' />
+      </div>
+      <div class='numof'>
+        <label for='mintime'>Play time:</label>
+        <input type='number' id='mintime' min='1' max='999' value='20' />
+        <label for='maxtime'>To</label>
+        <input type='number' id='maxtime' min='1' max='999' value='40' />
+      </div>
+      <input type='number' id='age' min='1' max='99' placeholder='Enter minimum age' />
+      <button id='add'>Add</button>
     </form>
   </div>
 </div>
@@ -42,26 +43,30 @@
 <script>
   $(document).ready(function () {
 
-    document.getElementById('add').onclick = function () {
-      //connect and insert 
-      $.ajax({
-        url: "./controller/games.php",
-        type: "post",
-        dataType: "html",
-        data: {
-          method: "add",
-          title: document.getElementById('title').value,
-          genre: document.getElementById('genreselect').value,
-          players: document.getElementById('minplayers').value + " - " + document.getElementById('maxplayers').value,
-          time: document.getElementById('mintime').value + "mins - " + document.getElementById('maxtime').value + "mins",
-          age: document.getElementById('age').value + "+",
-          user_id: sessionStorage.id
-        },
-        success: function (resp) {
-          alert("Added!");
-        }
-      });
-    }
+    $("#add").click(function() {
+          
+
+      if (document.getElementById("title").value != "") {
+        $.ajax({
+          url: "./controller/games.php",
+          type: "post",
+          dataType: "html",
+          data: {
+            method: "add",
+            title: document.getElementById('title').value,
+            genre: document.getElementById('genreselect').value,
+            players: document.getElementById('minplayers').value + " - " + document.getElementById('maxplayers').value,
+            time: document.getElementById('mintime').value + "mins - " + document.getElementById('maxtime').value + "mins",
+            age: document.getElementById('age').value + "+",
+            user_id: sessionStorage.id
+          },
+          success: function (resp) {
+            location.replace("userprofile");
+          }
+        });
+      }
+
+    });
 
     $.ajax({
       url: "./controller/genres.php",
@@ -76,17 +81,13 @@
         }
       }
     });
-            function checkTitle(input) {
-            var submitButton = document.getElementById("add");
-            console.log("input: " + input);
-            if (input.validity.patternMismatch) {
-                input.setCustomValidity("Title can only contain a-z or A-Z");
-            } else if (input.validity.valueMissing) {
-                input.setCustomValidity("You must enter a title.");
-            } else {
-                input.setCustomValidity("");
-            }
-        }
+    
+    
+     
+
+      
+
+
 
   });
 </script>

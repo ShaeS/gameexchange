@@ -17,28 +17,32 @@
     </form>
   </div>
   <div class="inputflex">
-    <div class="flexinput">
-      <i class="fa fa-user"></i>
-      <input type='text' id='name' placeholder='Enter Name' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,30}' oninput='checkName(this);'/>
-    </div>
-    <div class="flexinput">
-      <i class="fa fa-user"></i>
-      <input type='text' id='username' placeholder='Enter Username' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,20}' oninput='checkuserName(this);'/>
-    </div>
-    <div class="flexinput">
-      <i class="fa fa-envelope"></i>
-      <input type='text' id='email' placeholder='Enter Email' autofocus="autofocus" required="true" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"/>
-    </div>
-    <div class="flexinput">
-      <i class="fa fa-map-marker"></i>
-      <input type='text' id='city' placeholder='Enter City' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,20}' oninput='checkCity(this);'/>
-    </div>
-    <div class="flexinput">
-      <i class="fa fa-lock"></i>
-      <input type='password' id='password' placeholder='Enter Password' autofocus="autofocus" required="true" pattern="[a-z, A-Z, 0-9]{4,20}" oninput="checkpassword(this);"/>
-    </div>
-    <a id='edit'>UPDATE</a>
-    <a id='delete'>DELETE ACCOUNT</a>
+      <div class="flexinput">
+        <i class="fa fa-user"></i>
+        <input type='text' id='name' placeholder='Enter Name' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,30}' />
+      </div>
+      <div class="flexinput">
+        <i class="fa fa-user"></i>
+        <input type='text' id='username' placeholder='Enter Username' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,20}' />
+      </div>
+      <div class="flexinput">
+        <i class="fa fa-envelope"></i>
+        <input type='text' id='email' placeholder='Enter Email' autofocus="autofocus" required="true" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" />
+      </div>
+      <div class="flexinput">
+        <i class="fa fa-map-marker"></i>
+        <input type='text' id='city' placeholder='Enter City' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,20}' />
+      </div>
+      <div class="flexinput">
+        <i class="fa fa-lock"></i>
+        <input type='password' id='password' placeholder='Enter Password' autofocus="autofocus" required="true" pattern="[a-z, A-Z, 0-9]{4,20}" />
+      </div>
+      <div class="flexinput">
+        <i class="fa fa-unlock-alt"></i>
+        <input type='password' id='confirmpassword' placeholder='Enter Password' autofocus="autofocus" required="true" pattern="[a-z, A-Z, 0-9]{4,20}" />
+      </div>
+      <button id='edit'>UPDATE</button>
+      <button id='delete'>DELETE ACCOUNT</button>
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -61,6 +65,9 @@
         $("#email").attr("value", resp[0].email);
         $("#city").attr("value", resp[0].location);
         $("#password").attr("value", resp[0].password);
+        $("#confirmpassword").attr("value", resp[0].password);
+        
+        
       }
     });
 
@@ -80,7 +87,6 @@
           user_id: sessionStorage.id
         },
         success: function (resp) {
-          alert("Updated!");
         }
       });
     }
@@ -101,7 +107,6 @@
       });
 
     }
-<<<<<<< HEAD
 
     var files = document.getElementById("profilepic");
 
@@ -110,6 +115,7 @@
       e.preventDefault();
 
       var formData = new FormData();
+      
 
       var xhr = new XMLHttpRequest();
 
@@ -119,6 +125,7 @@
         return false;
       }
       formData.append("images[]", allfiles[0], allfiles[0].name);
+      console.log(formData);
       formData.append("user_id", sessionStorage.id);
 
       xhr.open("POST", "./model/upload.php", true);
@@ -132,87 +139,7 @@
 
       xhr.send(formData);
     });
-=======
+
     
-            function checkName(input) {
-            var submitButton = document.getElementById("signup");
-            console.log("input: " + input);
-            if (input.validity.patternMismatch) {
-                input.setCustomValidity("Name can only contain a-z or A-Z");
-            } else if (input.validity.valueMissing) {
-                input.setCustomValidity("You must enter a name!");
-            } else {
-                input.setCustomValidity("");
-            }
-        }
-            function checkUsername(input) {
-            var submitButton = document.getElementById("signup");
-            console.log("input: " + input);
-            if (input.validity.patternMismatch) {
-                input.setCustomValidity("Name can only contain a-z or A-Z");
-            } else if (input.validity.valueMissing) {
-                input.setCustomValidity("You must enter a name!");
-            } else {
-                input.setCustomValidity("");
-            }
-        }
-            var email = document.getElementById('email');
-
-            email.addEventListener(function (event) {
-
-                if (email.validity.typeMismatch) {
-                    email.setCustomValidity("Must be email format: example@example.com");
-
-                } else if (email.validity.valueMissing) {
-                    email.setCustomValidity("Required field");
-
-                } else {
-                    email.setCustomValidity("");
-                }
-            });
-            function checkCity(input) {
-            var submitButton = document.getElementById("signup");
-            console.log("input: " + input);
-            if (input.validity.patternMismatch) {
-                input.setCustomValidity("Name can only contain a-z or A-Z");
-            } else if (input.validity.valueMissing) {
-                input.setCustomValidity("You must enter a name!");
-            } else {
-                input.setCustomValidity("");
-            }
-        }
-            var password1 = document.getElementById('password');
-            var password2 = document.getElementById('confirmpassword');
-
-            password1.addEventListener(function (event) {
-                if (password1.validity.valueMissing) {
-                    password1.setCustomValidity("Required field");
-
-                } else {
-                    password1.setCustomValidity("");
-                }
-            });
-
-            password2.addEventListener(function (event) {
-
-                if (password2.validity.valueMissing) {
-                    password2.setCustomValidity("Required field");
-
-                } else {
-                    password2.setCustomValidity("");
-                }
-            });
-
-            var checkPasswordValidity = function () {
-                if (password1.value != password2.value) {
-                    password1.setCustomValidity('Passwords do not match.');
-                } else {
-                    password1.setCustomValidity('');
-                }
-            };
-
-            password1.addEventListener('change', checkPasswordValidity, false);
-            password2.addEventListener('change', checkPasswordValidity, false);
->>>>>>> origin/master
   });
 </script>

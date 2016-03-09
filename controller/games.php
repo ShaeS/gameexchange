@@ -9,6 +9,10 @@ if($_POST['method'] == "getall"){
     get_games();   
 }
 
+if($_POST['method'] == "getsearch"){
+    get_search();   
+}
+
 if($_POST['method'] == "getgame"){
     get_single_game();   
 }

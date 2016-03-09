@@ -6,6 +6,7 @@
       <p class="headex">EXCHANGE</p>
     </div>
   </div>
+  <input type='text' id='search' placeholder='search' />
   <a class='userproflink' href='userprofile'><i class='fa fa-user'></i><span id="headuser"></span></a>
 </header>
 <div class="wrapper">
@@ -17,7 +18,6 @@
 
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
 
@@ -34,48 +34,69 @@
       }
     });
 
+
     $.ajax({
-      url: "./controller/comments.php",
+      url: "./controller/games.php",
       type: "POST",
       dataType: "json",
       data: {
         method: "getall"
       },
       success: function (resp) {
-        var comments = resp;
-
-        $.ajax({
-          url: "./controller/games.php",
-          type: "POST",
-          dataType: "json",
-          data: {
-            method: "getall"
-          },
-          success: function (resp) {
-            var html = "<ul class='listul'>";
-            for (var i = 0; i < resp.length; i++) {
-              html += "<li class='game'>";
-              html += "<h3>" + resp[i].title + "</h3>";
-              html += "<img src='" + resp[i].image + "' />";
-              html += "<div class='gameinfo'>";
-              html += "<a id='" + resp[i].ID + "' href='gamedetails' class='viewgame'>VIEW</a>";
-              html += "<ul>";
-              
-
-
+        var html = "<ul class='listul'>";
+        for (var i = 0; i < resp.length; i++) {
+          html += "<li class='game'>";
+          html += "<h3>" + resp[i].title + "</h3>";
+          html += "<img class='gameimg' src='" + resp[i].image + "' />";
+          html += "<div class='gameinfo'>";
+          html += "<a id='" + resp[i].game_id + "' href='gamedetails' class='viewgame'>VIEW</a>";
+          html += "<div class='userflexer'>";
+          html += "<p class='gameuser' >" + resp[i].username + "</p>";
+          html += "<img class='smallav' src='" + resp[i].avatar + "' />";
+          html += "</div>";
+          html += "</div>";
+          html += "</li>";
+        }
+        html += "</ul>";
+        $("#display").html(html);
+        $(".viewgame").click(function () {
+          sessionStorage.game_id = $(this).attr("id");
+        });
+        $("#search").keyup(function () {
+          $.ajax({
+            url: "./controller/games.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+              method: "getsearch",
+              search: $(this).val()
+            },
+            success: function (resp) {
+              var html = "<ul class='listul'>";
+              for (var i = 0; i < resp.length; i++) {
+                html += "<li class='game'>";
+                html += "<h3>" + resp[i].title + "</h3>";
+                html += "<img class='gameimg' src='" + resp[i].image + "' />";
+                html += "<div class='gameinfo'>";
+                html += "<a id='" + resp[i].game_id + "' href='gamedetails' class='viewgame'>VIEW</a>";
+                html += "<div class='userflexer'>";
+                html += "<p class='gameuser' >" + resp[i].username + "</p>";
+                html += "<img class='smallav' src='" + resp[i].avatar + "' />";
+                html += "</div>";
+                html += "</div>";
+                html += "</li>";
+              }
               html += "</ul>";
-              html += "</div>";
-              html += "</li>";
+              $("#display").html(html);
+              $(".viewgame").click(function () {
+                sessionStorage.game_id = $(this).attr("id");
+              });
             }
-            html += "</ul>";
-            $("#display").html(html);
-            $(".viewgame").click(function () {
-              sessionStorage.game_id = $(this).attr("id");
-            });
-          }
+          });
         });
       }
     });
+
 
   });
 </script>

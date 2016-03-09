@@ -1,0 +1,222 @@
+<header>
+  <a href='gamegetlarge'>
+    <div class="headlogo">
+      <img src="./img/smalllogo.png" />
+      <div class="headerlogotext">
+        <p class="headgame">THE GAME</p>
+        <p class="headex">EXCHANGE</p>
+      </div>
+    </div>
+  </a>
+  <a href='gamedetails'><span>back to details</span></a>
+</header>
+<div class="wrapper">
+  <div class="profwrap">
+    <img id="profileimg" class="profile" src="./img/profile.png" alt="profile picture">
+    <p class="usernametitle"></p>
+    <p class="locationtitle"></p>
+    <p class="emailtitle"></p>
+  </div>
+  <div class='profilebuttons'>
+    <a class='profileposts' id='posts'>POSTS</a>
+    <a id='addpost'>REVIEWS</a>
+    <a class='profilefavourites' id='fav'>FAVOURITE</a>
+  </div>
+  <div id='display'>
+
+  </div>
+
+</div>
+<script>
+  $(document).ready(function () {
+
+    $.ajax({
+      url: "./controller/favorites.php",
+      type: "post",
+      dataType: "json",
+      data: {
+        method: "getall",
+        user_id: sessionStorage.id,
+        user_id2: sessionStorage.user
+      },
+      success: function (resp) {
+        console.log(resp);
+        for (var i = 0; i < resp.length; i++) {
+          console.log(resp[i]);
+          if (sessionStorage.user == resp[i].user_id2) {
+            $("#fav").html("<i class='fa fa-heart'></i>");
+          }
+        }
+
+      }
+    });
+
+    $(".profilefavourites").click(function () {
+      $.ajax({
+        url: "./controller/favorites.php",
+        type: "post",
+        dataType: "html",
+        data: {
+          method: "insert",
+          user_id: sessionStorage.id,
+          user_id2: sessionStorage.user
+        },
+        success: function (resp) {
+          $("#fav").html("<i class='fa fa-heart'></i>");
+        }
+      });
+    });
+
+    $.ajax({
+      url: "./controller/user.php",
+      type: "post",
+      dataType: "json",
+      data: {
+        method: "getinfo",
+        user_id: sessionStorage.user
+      },
+      success: function (resp) {
+        $("#profileimg").attr("src", resp[0].avatar);
+        $("#profileimg").attr("alt", "Picture of " + resp[0].name);
+        $(".usernametitle").text(resp[0].username);
+        $(".locationtitle").text(resp[0].location);
+        $(".emailtitle").html("<a class='emaillink' href='mailto:" + resp[0].email + "?Subject=Game Exchange Message' target='_top'>" + resp[0].email + "</a>");
+      }
+    });
+
+    $("#addpost").click(function () {
+      $.ajax({
+        url: "./controller/comments.php",
+        type: "post",
+        dataType: "json",
+        data: {
+          method: "getall",
+          user_id: sessionStorage.user
+        },
+        success: function (resp) {
+          var html = "<ul class='commentlist'>";
+          html += "<textarea class='newcomment'></textarea>";
+          html += "<button class='submitcomment'>SUBMIT</button>";
+          for (var i = 0; i < resp.length; i++) {
+            if (resp[i].user_id == sessionStorage.id) {
+              html += "<li id='" + resp[i].comment_id + "'>";
+              html += resp[i].username + ": ";
+              html += resp[i].comment;
+              html += "<span id='" + resp[i].comment_id + "' class='commentfunc commentedit'>edit</span><span id='" + resp[i].comment_id + "' class='commentfunc commentdelete'>delete</span>";
+              html += "</li>";
+            } else {
+              html += "<li>";
+              html += resp[i].username + ": ";
+              html += resp[i].comment;
+              html += "</li>";
+            }
+          }
+          html += "</ul>";
+          $("#display").html(html);
+          
+           $(".commentdelete").click(function () {
+              $.ajax({
+                url: "./controller/comments.php",
+                type: "post",
+                dataType: "html",
+                data: {
+                  method: "delete",
+                  comment_id: $(this).attr("id")
+                },
+                success: function (resp) {
+                  location.reload();
+                }
+              });
+          });
+
+          $(".commentedit").click(function () {
+            var updateli = $(this).attr("id")
+            $("#" + updateli).html("<textarea class='newcommentupdate'></textarea><span class='textedit'>edit</span>");
+
+            $(".textedit").click(function () {
+              $.ajax({
+                url: "./controller/comments.php",
+                type: "post",
+                dataType: "html",
+                data: {
+                  method: "update",
+                  comment_id: updateli,
+                  comment: $(".newcommentupdate").val()
+                },
+                success: function (resp) {
+                  location.reload();
+                }
+              });
+            });
+          });
+
+          $(".submitcomment").click(function () {
+            $.ajax({
+              url: "./controller/comments.php",
+              type: "post",
+              dataType: "html",
+              data: {
+                method: "insert",
+                user_id: sessionStorage.id,
+                user_id2: sessionStorage.user,
+                comment: $(".newcomment").val()
+              },
+              success: function (resp) {
+                location.reload();
+              }
+            });
+          });
+
+        }
+      });
+    });
+
+
+    var games = function () {
+      $.ajax({
+        url: "./controller/games.php",
+        type: "post",
+        dataType: "json",
+        data: {
+          method: "getusergames",
+          user_id: sessionStorage.user
+        },
+        success: function (resp) {
+          var html = "<ul class='largeul'>";
+          for (var i = 0; i < resp.length; i++) {
+            html += "<li class='game'>";
+            html += "<a id='" + resp[i].ID + "' class ='viewimggame' href='gamedetails'><span class='roll'></span><img class='thumbnail' src='" + resp[i].image + "' />";
+            html += "</li>";
+          }
+          html += "</ul>";
+          $("#display").html(html);
+          $(".profileposts").html(resp.length + " POSTS");
+          $(".viewimggame").click(function () {
+            sessionStorage.game_id = $(this).attr("id");
+          });
+
+          $(function () {
+            $(".roll").css("opacity", "0");
+            $(".roll").hover(function () {
+                $(this).stop().animate({
+                  opacity: .7
+                }, "fast");
+              },
+              function () {
+                $(this).stop().animate({
+                  opacity: 0
+                }, "fast");
+              });
+          });
+
+        }
+
+      });
+    }
+    games();
+    $("#posts").click(function () {
+      games();
+    });
+
+  });
+</script>

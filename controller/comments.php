@@ -9,4 +9,12 @@ if($_POST['method'] == "getall"){
     get_comments();   
 }
 
+if($_POST['method'] == "update"){
+    update_comment();   
+}
+
+if($_POST['method'] == "delete"){
+    delete_comment();   
+}
+
 ?>

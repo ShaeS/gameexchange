@@ -41,6 +41,10 @@ GameApp.config([
       "/gamecreate", {
         templateUrl: "view/gamecreate.html"
       }
+    ).when(
+      "/profile", {
+        templateUrl: "view/profile.html"
+      }
     ).otherwise(
       {redirectTo: "/userlogin"}
     );

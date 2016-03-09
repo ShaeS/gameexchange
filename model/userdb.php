@@ -11,7 +11,13 @@
         global $db;
         $query = "SELECT ID FROM users WHERE username = '".$_POST['username']."' AND password = '".$_POST['password']."'";
         $result = $db->query($query);
-        echo json_encode($result->fetchAll());
+        $checkuser = $result->fetchAll();
+        if(empty($checkuser)) {
+          echo json_encode(0);
+        } else {
+          echo json_encode($checkuser);
+        }
+        
     }
 
     function update_user(){

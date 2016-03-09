@@ -10,43 +10,78 @@
 </header>
 <div class='wrapper'>
   <div class='imageupload'>
-    <img id="gameimg" class="gameimg2" src="./img/default.png" alt="game picture">
     <form id='gameimgform'>
-      <input type="file" name="file" id="gamepic" class="inputfile" />
-      <label for="gamepic">Choose a file...</label>
+      <input type="file" name="file" id="gamepic" class="inputfile2" />
+      <label for="gamepic">Choose an image...</label>
     </form>
   </div>
   <div class='inputflexcreate'>
-    <form id="submitForm" name="makegame" method="post">
+    <form id="gameForm" name="makegame" method="post">
       <input type='text' id='title' placeholder='Game Title' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,30}' />
       <select id='genreselect'>
-        <option value='40'>Choose an genre</option>
+        <option disabled selected value='40'>Choose an genre</option>
       </select>
       <div class='numof'>
         <label for='minplayers'>Players:</label>
-        <input type='number' id='minplayers' min='1' max='99' value='1' />
+        <input type='number' id='minplayers' min='1' max='99' value='1'  required />
         <label for='maxplayers'>To</label>
-        <input type='number' id='maxplayers' min='1' max='99' value='2' />
+        <input type='number' id='maxplayers' min='1' max='99' value='2'  required />
       </div>
       <div class='numof'>
         <label for='mintime'>Play time:</label>
-        <input type='number' id='mintime' min='1' max='999' value='20' />
+        <input type='number' id='mintime' min='1' max='999' value='20'  required />
         <label for='maxtime'>To</label>
-        <input type='number' id='maxtime' min='1' max='999' value='40' />
+        <input type='number' id='maxtime' min='1' max='999' value='40'  required />
       </div>
-      <input type='number' id='age' min='1' max='99' placeholder='Enter minimum age' />
-      <button id='add'>Add</button>
+      <input type='number' id='age' min='1' max='99' placeholder='Enter minimum age' required />
+      <button id='add'>ADD</button>
     </form>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
+    
+    var files = document.getElementById("gamepic");
+    var filename = (Math.random()+1).toString(36).substring(7);
+    console.log(filename);
+    
 
-    $("#add").click(function() {
+    $("#gamepic").on('change', function (e) {
+      //do whatever you want
+      e.preventDefault();
+      
+
+      var formData = new FormData();
+
+
+      var xhr = new XMLHttpRequest();
+
+      var allfiles = files.files;
+
+      if (!allfiles[0].type.match("image/*")) {
+        return false;
+      }
+      formData.append("images[]", allfiles[0], allfiles[0].name);
+      formData.append("user_id", sessionStorage.id);
+      formData.append("filename", filename);
+
+
+      xhr.open("POST", "./model/gameupload.php", true);
+      xhr.onload - function () {
+        if (xhr.status == 200) {
+        }
+      }
+      $(".inputfile2 + label").css({"background-color": "#43484c",
+                                   "color": "#aaaaaa"});
+      $(".inputfile2 + label").html(allfiles[0].name);
+
+
+      xhr.send(formData);
+    });
+
+    $("#gameForm").submit(function() {
           
 
-      if (document.getElementById("title").value != "") {
         $.ajax({
           url: "./controller/games.php",
           type: "post",
@@ -58,13 +93,14 @@
             players: document.getElementById('minplayers').value + " - " + document.getElementById('maxplayers').value,
             time: document.getElementById('mintime').value + "mins - " + document.getElementById('maxtime').value + "mins",
             age: document.getElementById('age').value + "+",
-            user_id: sessionStorage.id
+            user_id: sessionStorage.id,
+            image: "./users/" +sessionStorage.id + "/" +filename +".jpg"
           },
           success: function (resp) {
             location.replace("userprofile");
           }
         });
-      }
+
 
     });
 

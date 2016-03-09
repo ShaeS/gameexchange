@@ -28,7 +28,6 @@
   </div>
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
 
@@ -59,7 +58,7 @@
         var html = "<ul class='largeul'>";
         for (var i = 0; i < resp.length; i++) {
           html += "<li class='game'>";
-          html += "<a id='" + resp[i].ID + "' class ='viewimggame' href='editgame'><span class='roll'></span><img src='" + resp[i].image + "' />";
+          html += "<a id='" + resp[i].ID + "' class ='viewimggame' href='editgame'><span class='roll'></span><img class='thumbnail' src='" + resp[i].image + "' />";
           html += "</li>";
         }
         html += "</ul>";

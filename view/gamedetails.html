@@ -1,19 +1,20 @@
 <header>
-  <div class="headlogo">
-    <img src="./img/smalllogo.png" />
-    <div class="headerlogotext">
-      <p class="headgame">THE GAME</p>
-      <p class="headex">EXCHANGE</p>
+  <a href='gamegetlarge'>
+    <div class="headlogo">
+      <img src="./img/smalllogo.png" />
+      <div class="headerlogotext">
+        <p class="headgame">THE GAME</p>
+        <p class="headex">EXCHANGE</p>
+      </div>
     </div>
-  </div>
-  <a class ='userproflink' href='userprofile'><i class='fa fa-user'></i><span id="headuser"></span></a>
+  </a>
+  <a class='userproflink' href='userprofile'><i class='fa fa-user'></i><span id="headuser"></span></a>
 </header>
 <div class="wrapper">
   <div id="display">
 
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
 
@@ -40,11 +41,24 @@
         game_id: sessionStorage.game_id
       },
       success: function (resp) {
+        sessionStorage.user = resp[0].user_id;
         var html = "";
-        html += resp[0].title;
+        html += "<div class='fulldetails'>";
+        html += "<div class='detailsimg'>";
+        html += "<img src='" + resp[0].image + "'/>";
+        html += "</div>";
+        html += "<div class='detailstext'>";
+        html += "<h2>" + resp[0].title + "</h2>";
+        html += "<p>Players: " + resp[0].players + "</p>";
+        html += "<p>Genre: " + resp[0].genre + "</p>";
+        html += "<p>Play Time: " + resp[0].playtime + "</p>";
+        html += "<p>Age: " + resp[0].playerage + "</p>";
+        html += "<a class='detailslink' href='profile'>View Posters Profile</a>";
+        html += "</div>";
+        html += "</div>";
         $("#display").html(html);
       }
-        });
+    });
 
   });
 </script>

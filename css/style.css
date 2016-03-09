@@ -221,6 +221,11 @@ h2.logotext {
   color: #bebebe;
 }
 
+#wrong {
+  color: #f04921;
+  text-align: center;
+}
+
 
 /********************************************
 SIGN UP
@@ -323,7 +328,7 @@ GAMGET LIST
   margin: 0;
 }
 
-.game img {
+.gameimg {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -373,6 +378,66 @@ GAMGET LIST
   color: #bebebe;
 }
 
+.userflexer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.smallav {
+  width: 50px;
+  border-radius: 25px;
+}
+
+.fulldetails {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items:center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 30px auto;
+}
+
+.detailsimg img {
+  width: 350px;
+  padding: 0 20px;
+}
+
+.detailstext {
+  padding: 0 20px;
+}
+
+.detailstext h2 {
+  font-size: 1.7em;
+}
+
+.detailslink {
+  color: #ce7a41;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.detailslink:hover {
+  color: #c16b30;
+  text-decoration: underline;
+}
+
 
 /********************************************
 GAMEGET LARGE
@@ -402,6 +467,10 @@ GAMEGET LARGE
   margin: 10px;
 }
 
+.thumbnail {
+  width: 100%;
+}
+
 span.roll {
   background: url(../img/roll.png) center center no-repeat #000;
   background-size: 75px;
@@ -412,15 +481,27 @@ span.roll {
   box-shadow: 0px 0px 4px #000;
 }
 
+#search {
+  border-radius: 0.9em;
+  font-size: 0.8em;
+  padding: 0.3em 1em;
+  outline: none;
+  color: black;
+}
+
 
 /********************************************
 USER PROFILE
 ********************************************/
 
-.usernametitle {
+.usernametitle, .emailtitle, .locationtitle {
   text-align: center;
   -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
+}
+
+.emaillink:hover {
+  color: #ce7a41;
 }
 
 .editprof2 {
@@ -495,15 +576,21 @@ USER PROFILE
 .profilefavourites,
 .profileposts {
   background-color: #43484c;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.profilefavourites:hover,
+.profileposts:hover {
+  background-color: #3a3e43;
 }
 
 #addpost:hover {
   background-color: #c16b30;
 }
 
-.profilefavourites:hover,
-.profileposts:hover {
-  cursor: default;
+.fa-heart {
+  color: #f03131;
 }
 
 span.rolledit {
@@ -523,20 +610,103 @@ span.rolledit {
   overflow: hidden;
   position: absolute;
   z-index: -1;
+  margin: 0;
 }
 
 .inputfile + label {
   text-align: center;
-  color: #6d7072;
   cursor: pointer;
-  width: 120px;
+  width: 150px;
   display: block;
-  margin: 10px auto;
+  margin: 10px auto 0;
+  font-size: 0.9em;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  outline: none;
+  color: #ce7a41;
 }
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-  color: #ce7a41;
+  color: #c16b30;
+}
+
+.inputfile2 {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  margin: 0;
+}
+
+.inputfile2 + label {
+  text-align: center;
+  cursor: pointer;
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+  background-color: #ce7a41;
+  padding: 0.8em;
+  font-size: 0.9em;
+  border-radius: 3px;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  outline: none;
+  color: white;
+}
+
+.inputfile2:focus + label,
+.inputfile2 + label:hover {
+  background-color: #c16b30;
+}
+
+.popup {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  width: 300px;
+  height: 150px;
+  margin-left: -150px;
+  margin-top: -75px;
+  text-align: center;
+  background-color: #919191;
+  border: 6px solid #43484c;
+  border-radius: 3px;
+}
+
+.popup h2 {
+  font-size: 1.4em;
+}
+
+.popup button {
+  width: 100px;
+  margin: 0px 5px;
+  border: none;
+  padding: 0.8em;
+  font-size: 0.9em;
+  border-radius: 3px;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  background-color: #43484c;
+}
+
+#confirmdel {
+  background-color: #ef6d4e;
+}
+
+#confirmdel:hover {
+  background-color: #f04921;
+}
+
+#canceldelete:hover {
+  background-color: #575c60;
 }
 
 
@@ -611,7 +781,8 @@ GAMECREATE
 }
 
 .imageupload {
-  margin: 50px auto;
+  margin: 50px auto 0.4em;
+  text-align: center;
 }
 
 .imageupload button {
@@ -653,6 +824,105 @@ label:first-child {
   display: block;
 }
 
+.newcomment {
+  font-size: 0.9em;
+  padding: 1.1em;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  margin: 0.4em 0;
+  width: 100%;
+  height: 100px;
+  color: #1f1f1f;
+}
+
+.commentlist button {
+  background-color: #ce7a41;
+  border: none;
+  padding: 0.7em 2em;
+  font-size: 0.9em;
+  border-radius: 3px;
+  margin: 0.4em 0;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.commentlist {
+  width: 80%;
+  margin: 20px auto 40px;
+  display: block;
+  padding: 0;
+}
+
+.commentlist li {
+  list-style: none;
+  margin: 10px 0;
+}
+
+.commentfunc {
+  font-size:0.9em;
+  margin: 0 7px;
+  cursor: pointer;
+}
+
+.commentedit {
+  color: #6787ed;
+}
+
+.commentedit:hover {
+  color: #4e72e3;
+}
+
+.commentdelete {
+  color: #f03131;
+}
+
+.commentdelete:hover {
+  color: #db2727;
+}
+
+.newcommentupdate {
+  font-size: 0.9em;
+  padding: 1.1em;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  margin: 0.4em 0;
+  width: 300px;
+  height: 100px;
+  color: #1f1f1f;
+}
+
+.textedit {
+  color: #6787ed;
+  margin: 0 7px;
+  cursor: pointer;
+  font-size:0.9em;
+}
+
+.textedit:hover {
+  color: #4e72e3;
+}
+
+
+/********************************************
+GAMEEDIT
+********************************************/
+
+.imageupload img {
+  width: 200px;
+  margin: 0 auto 20px;
+}
+
+
+
 
 /********************************************
 MEDIA QUERIES 768
@@ -685,6 +955,14 @@ MEDIA QUERIES 768
   .flexinput i {
     font-size: 1.15em;
     padding: 0.62em;
+  }
+  .fulldetails {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .detailsimg img {
+    width: 300px;
   }
 }
 

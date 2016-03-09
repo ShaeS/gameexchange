@@ -18,11 +18,11 @@
       </div>
       <button type='submit' id='login'>LOG IN</button>
     </form>
+    <div id='wrong'></div>
   </div>
 
   <p class="redirect">Don't have an account? <a href="usersignup">Sign up now <i class="fa fa-arrow-right"></i></a></p>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
     sessionStorage.id = -1;
@@ -41,9 +41,13 @@
         },
         success: function (resp) {
           e.preventDefault();
+          if (resp == 0) {
+            $("#wrong").html("Wrong username or password");
+          } else {
           user_id = resp[0].ID;
           sessionStorage.id = resp[0].ID;
           location.replace("gamegetlarge");
+          }
         }
       });
 

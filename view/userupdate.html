@@ -17,6 +17,7 @@
     </form>
   </div>
   <div class="inputflex">
+    <form id="updateform">
       <div class="flexinput">
         <i class="fa fa-user"></i>
         <input type='text' id='name' placeholder='Enter Name' autofocus='autofocus' required='true' pattern='[a-z, A-Z]{1,30}' />
@@ -43,9 +44,9 @@
       </div>
       <button id='edit'>UPDATE</button>
       <button id='delete'>DELETE ACCOUNT</button>
+    </form>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
 
@@ -66,56 +67,73 @@
         $("#city").attr("value", resp[0].location);
         $("#password").attr("value", resp[0].password);
         $("#confirmpassword").attr("value", resp[0].password);
-        
-        
+
+
       }
     });
 
-    document.getElementById('edit').onclick = function () {
-      //connect and insert 
-      $.ajax({
-        url: "./controller/user.php",
-        type: "post",
-        dataType: "html",
-        data: {
-          method: "update",
-          name: document.getElementById('name').value,
-          username: document.getElementById('username').value,
-          email: document.getElementById('email').value,
-          city: document.getElementById('city').value,
-          password: document.getElementById('password').value,
-          user_id: sessionStorage.id
-        },
-        success: function (resp) {
-        }
-      });
-    }
+    $("#updateform").submit(function () { //connect and insert 
+      var pass1 = $("#password").val();
+      var pass2 = $("#confirmpassword").val();
 
-    document.getElementById('delete').onclick = function () {
-      //connect and insert 
-      $.ajax({
-        url: "./controller/user.php",
-        type: "post",
-        dataType: "html",
-        data: {
-          method: "delete",
-          user_id: sessionStorage.id
-        },
-        success: function (resp) {
-          alert("Deleted!");
-        }
+
+      if (pass1 == pass2) {
+        $.ajax({
+          url: "./controller/user.php",
+          type: "post",
+          dataType: "html",
+          data: {
+            method: "update",
+            name: document.getElementById('name').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            city: document.getElementById('city').value,
+            password: document.getElementById('password').value,
+            user_id: sessionStorage.id
+          },
+          success: function (resp) {
+            location.replace("userprofile");
+          }
+        });
+      } else {
+        $(".fa-unlock-alt").css('color', '#ff471a');
+      }
+    });
+
+    document.getElementById('delete').onclick = function (e) {
+      e.preventDefault();
+      var popup = $("<div class='popup'><h2>Are you sure?</h2><button id='confirmdel'>DELETE</button><button id='canceldelete'>CANCEL</button></div>");
+      $(document.body).append(popup);
+      
+      $("#canceldelete").click(function () {
+        $(popup).remove();
+      });
+
+      $("#confirmdel").click(function () {
+        //connect and insert 
+        $.ajax({
+          url: "./controller/user.php",
+          type: "post",
+          dataType: "html",
+          data: {
+            method: "delete",
+            user_id: sessionStorage.id
+          },
+          success: function (resp) {
+            location.replace("userlogin");
+          }
+        });
       });
 
     }
 
     var files = document.getElementById("profilepic");
 
-    $("#profilepic").on('change', function (e) {
+    $("#profilepic").on('change', function () {
       //do whatever you want
-      e.preventDefault();
 
       var formData = new FormData();
-      
+
 
       var xhr = new XMLHttpRequest();
 
@@ -138,8 +156,9 @@
 
 
       xhr.send(formData);
+      location.reload();
     });
 
-    
+
   });
 </script>
